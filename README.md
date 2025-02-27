@@ -1,6 +1,6 @@
 # Circulant ADMM-Net for Fast High-resolution DoA Estimation
 
-This repository supplements the paper "Circulant ADMM-Net for Fast High-resolution DoA Estimation". CADMM-Net is a structured deep-unrolled network based on the alternating direction method of multipliers (ADMM) algorithm. The only learnable parameters of the network are the (real-valued) eigenvalues in the eigen-decomposition of a circulant matrix in each layer, resulting in a considerable decrease in training and inference times through FFTs while achieving a competitive performance against ADMM-Net. 
+This repository supplements the [paper](https://arxiv.org/pdf/2502.19076) "Circulant ADMM-Net for Fast High-resolution DoA Estimation". CADMM-Net is a structured deep-unrolled network based on the alternating direction method of multipliers (ADMM) algorithm. The only learnable parameters of the network are the (real-valued) eigenvalues in the eigen-decomposition of a circulant matrix in each layer, resulting in a considerable decrease in training and inference times through FFTs while achieving a competitive performance against ADMM-Net. 
 
 Below is a guided walkthrough to replicate
 the experimental results.
