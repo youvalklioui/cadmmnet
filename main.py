@@ -46,7 +46,7 @@ def main():
                         'ADMM-Net, CADMM-Net, CHADMM-Net, LISTA, TLISTA, THLISTA.')
                         
     parser_train.add_argument('--num_layers', type=int, default=30, help='Number of layers in the model.')
-    parser_train.add_argument('--dataset_test_path', type=str, help='Path to the training set.')
+    parser_train.add_argument('--dataset_train_path', type=str, help='Path to the training set.')
     parser_train.add_argument('--epochs', type=int, default=30, help='Number of epochs.')
     parser_train.add_argument('--lr', type=float, default=1e-4, help='Learning rate.')
     parser_train.add_argument('--batch_size', type=int, default=2048, help='Batch size.')
