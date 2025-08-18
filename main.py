@@ -67,8 +67,8 @@ def main():
                             or number of iterations in case of an iterative method.''')
     
     parser_metrics.add_argument('--dataset_test_path', type=str, help='Path to the test dataset to be used for the metric evaluation.')
-    parser_train.add_argument('--model_path', type=str, help='Path to a specific model state to use for the metric evaluation. This argument is optional.')
-    parser_train.add_argument('--load_latest_state', type=str, default=True, help='Loads the latest saved state if available. Set to False to use a specific model state.')
+    parser_metrics.add_argument('--model_path', type=str, help='Path to a specific model state to use for the metric evaluation. This argument is optional.')
+    parser_metrics.add_argument('--load_latest_state', type=str, default=True, help='Loads the latest saved state if available. Set to False to use a specific model state.')
 
     parser_metrics.add_argument('--metric', type=str, default='detection_rate', help="Metric to be used for the model performance evaluation: detection_rate, nmse or rmse.")
     
