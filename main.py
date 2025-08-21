@@ -95,9 +95,9 @@ def main():
     if args.command == 'create-array':
         generate_dictionary(args.array_type, args.num_elements, args.aperture, args.dictionary_length)
     elif args.command == 'create-trainset': 
-        generate_dataset_train(args.dictionary_path, args.num_measurement_vectors, args.max_number_sources, args.snr, args.min_freq_seperation_factor)
+        generate_dataset_train(args.dictionary_path, args.num_measurement_vectors, args.max_number_sources, args.snr, args.min_freq_separation_factor)
     elif args.command == 'create-testset':
-        generate_dataset_test(args.dictionary_path, args.snr_values, args.num_vectors_per_snr, args.max_number_sources, args.min_freq_seperation_factor)
+        generate_dataset_test(args.dictionary_path, args.snr_values, args.num_vectors_per_snr, args.max_number_sources, args.min_freq_separation_factor)
     elif args.command == 'train-model':
         train_model(args.model, args.num_layers, args.dataset_train_path, args.epochs, args.lr, args.batch_size, args.num_training_samples, args.model_path, 
                     args.load_latest_state, args.device)
