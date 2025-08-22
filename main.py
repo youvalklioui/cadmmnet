@@ -29,7 +29,7 @@ def main():
     parser_dataset_train.add_argument('--num_measurement_vectors', type=int, default=120000, help='Number of measurement vectors in the training set.')
     parser_dataset_train.add_argument('--max_number_sources', type=int, default=8, help='Maximum number of sources per measurement vector.')
     parser_dataset_train.add_argument('--snr', type=list, default=[15], help='Signal-to-noise ratio in dB.')
-    parser_dataset_train.add_argument('--min_freq_seperation_factor', type=int, default=1, help='Minimum frequency separation factor.')
+    parser_dataset_train.add_argument('--min_freq_separation_factor', type=int, default=1, help='Minimum frequency separation factor.')
 
 
     parser_dataset_test = subparsers.add_parser("create-testset", help="Generate a test dataset.")
@@ -37,7 +37,7 @@ def main():
     parser_dataset_test.add_argument('--snr_values', type=list, default=[0, 5, 10, 15, 20, 30, 35], help='List of SNR points (in dB) at which the model is tested.')
     parser_dataset_test.add_argument('--num_vectors_per_snr', type=int, default=1000, help='Number of test measurement vectors per SNR point.')
     parser_dataset_test.add_argument('--max_number_sources', type=int, default=8, help='Maximum number of sources per test measurement vector.')
-    parser_dataset_test.add_argument('--min_freq_seperation_factor', type=int, default=3, help='Minimum frequency separation factor.')
+    parser_dataset_test.add_argument('--min_freq_separation_factor', type=int, default=3, help='Minimum frequency separation factor.')
  
         
     parser_train = subparsers.add_parser("train-model", help="Train a model.")
@@ -99,10 +99,10 @@ def main():
     elif args.command == 'create-testset':
         generate_dataset_test(args.dictionary_path, args.snr_values, args.num_vectors_per_snr, args.max_number_sources, args.min_freq_separation_factor)
     elif args.command == 'train-model':
-        train_model(args.model, args.num_layers, args.dataset_train_path, args.epochs, args.lr, args.batch_size, args.num_training_samples, args.model_path, 
+        train_model(args.model, args.dataset_train_path, args.num_layers, args.epochs, args.lr, args.batch_size, args.num_training_samples, args.model_path, 
                     args.load_latest_state, args.device)
     elif args.command == 'evaluate-model':
-        evaluate_model(args.model, args.num_layers, args.dataset_test_path, args.model_path, args.load_latest_state, args.metric, args.bin_threshold, 
+        evaluate_model(args.model, args.dataset_test_path, args.num_layers, args.model_path, args.load_latest_state, args.metric, args.bin_threshold, 
                        args.amp_threshold, args.return_degs, args.device)
 
 if __name__ == '__main__':
