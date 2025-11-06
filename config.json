@@ -1,0 +1,46 @@
+{
+    "create-array": {
+        "array_type": "SLA",
+        "num_elements": 30,
+        "aperture": 60,
+        "dictionary_length": 256
+    },
+    "create-trainset": {
+        "dictionary_path": "./datasets/sla/dictionary_30elem_60ap_256len.pt",
+        "num_measurement_vectors": 120000,
+        "max_number_sources": 8,
+        "snr": [15],
+        "min_freq_separation_factor": 1
+    },
+    "create-testset": {
+        "dictionary_path": "./datasets/sla/dictionary_30elem_60app_256len.pt",
+        "snr_values": [0, 5, 10, 15, 20, 25, 30, 35],
+        "num_vectors_per_snr": 1000,
+        "max_number_sources": 8,
+        "min_freq_separation_factor": 3
+    },
+    "train-model": {
+        "model": "THADMM-Net",
+        "num_layers": 30,
+        "dataset_train_path":"./datasets/ula/dataset_train_8tgts_15dbsnr_1fres.pt",
+        "epochs": 30,
+        "lr": 0.0001,
+        "batch_size": 2048,
+        "num_training_samples": 100000,
+        "model_path": null,
+        "load_latest_state": false,
+        "device": "cuda"
+    },
+    "evaluate-model": {
+        "model": "CADMM-Net",
+        "num_layers": 30,
+        "dataset_test_path": "./datasets/sla/dataset_test_8tgts_0to35dbsnr_3fres.pt",
+        "model_path": null,
+        "load_latest_state": true,
+        "metric": "detection_rate",
+        "bin_threshold": 2,
+        "amp_threshold": 0.6,
+        "return_degs": true,
+        "device": "cpu"
+    }
+}
