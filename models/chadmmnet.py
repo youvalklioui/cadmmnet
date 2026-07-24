@@ -22,13 +22,13 @@ class UnitCellChAdmmNet(nn.Module):
         # Initialize weight vector
         w = torch.zeros(N,dtype=torch.complex128,device=self.device)
 
-        # Build weight vector from the vector self.v, of size floor(N/2) + 1, that parametrizes the Hermtian Circulant
+        # Build weight vector from the vector self.v, of size floor(N/2) + 1, that parametrizes the Hermtian circulant
         w[idx[0]] = self.v
         w[idx[1]] = self.v[idx[2]].flip(0).conj()
 
         # Perform the inversion in the eigendomain
         w = 1 / (torch.fft.fft(w,dim=0) + self.rho).unsqueeze(-1)
-
+        # Perform matrix-vector product with FFTs using the learned eigendcompsition
         u_out = torch.fft.ifft(w * torch.fft.fft(self.rho * (2 * self.S(u_in) - u_in) + yf, dim=0), dim=0)
         u_out = u_out + u_in - self.S(u_in)
 

@@ -3,6 +3,9 @@ import torch.nn as nn
 
 
 class SoftThresh(nn.Module):
+    """
+    Learnable proximal operator for L1 norm.
+    """
     def __init__(self, beta, device="cuda"):
         super().__init__()
         self.beta = torch.nn.Parameter(beta * torch.ones([1], device=device))

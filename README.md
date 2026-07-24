@@ -1,6 +1,6 @@
 # Circulant ADMM-Net for Fast High-resolution DoA Estimation
 
-This repository supplements the [paper](https://arxiv.org/pdf/2502.19076) "Circulant ADMM-Net for Fast High-resolution DoA Estimation". CADMM-Net is a structured deep-unrolled network based on the alternating direction method of multipliers (ADMM) algorithm. The only learnable parameters of the network are the (real-valued) eigenvalues in the eigen-decomposition of a circulant matrix in each layer, resulting in a considerable decrease in training and inference times through FFTs while achieving a competitive performance against ADMM-Net. 
+This repository supplements the [paper](https://arxiv.org/pdf/2502.19076) "Circulant ADMM-Net for Fast High-resolution DoA Estimation". CADMM-Net  and CHADMMN-Net are structured deep-unrolled network based on the alternating direction method of multipliers (ADMM) algorithm where the only learnable parameters of the networks are the (real-valued) eigenvalues in the eigen-decomposition of a circulant matrix in each layer, resulting in a considerable decrease in training and inference times through FFTs while achieving a competitive performance against ADMM-Net, LISTA, and Toeplitz-LISTA. 
 
 Below is a guided walkthrough to replicate
 the experimental results.
@@ -27,8 +27,8 @@ conda env create -f environment.yml
 conda activate cadmmnet_env
 ```
 ## Datasets Setup
-### Dictionary Generation
-We generate a dictionary for the experimental setup by specifying an `array_type` (`'SLA'` or `'ULA'`), the `aperture` (in $\lambda/2$ units), the  `num_elements` to be randomly sub-sampled along with the `dictionary_length` for the sparse recovery problem.
+### Array and Dictionary Generation
+We generate a dictionary for the experimental setup by first specifying an `array_type` (`'SLA'` for a sparse linear array or `'ULA'` for a uniform linear array), the `aperture` (in $\lambda/2$ units), the  `num_elements` of array elements to be randomly sub-sampled along with the `dictionary_length` for the sparse recovery problem.
 
 ```sh
 python main.py create-array \
@@ -64,7 +64,7 @@ python main.py create-testset \
   --max_number_sources 8 \
   --min_freq_separation_factor 3 \
 ```
-which will create a `dataset_test_8tgts_0to35dbsnr_3fres.pt` under the same directory as the training set. The datasets can also be download from [here](https://zenodo.org/records/14926792) for the SLA setting or [here](https://zenodo.org/records/14926980) for the ULA setting, and need to be placed under `./datasets/sla` or `./datasets/ula`, respectively. In the example above, we will have `1000` measurement test vectors for each value in `snr_values`.
+This will create a `dataset_test_8tgts_0to35dbsnr_3fres.pt` under the same directory as the training set. The datasets can also be download from [here](https://zenodo.org/records/14926792) for the SLA setting or [here](https://zenodo.org/records/14926980) for the ULA setting, and need to be placed under `./datasets/sla` or `./datasets/ula`, respectively. In the example above, we will have `1000` measurement test vectors for each value in `snr_values`.
 
 ## Model Training
  We can then train our model with
@@ -101,11 +101,8 @@ python main.py evaluate-model \
   --device cpu
 ```
 
-This will load the latest model state for the given model name and number of layers, and will evaluate its performance with respect to the specified metric, which can be ` 'detection_rate' `, `'rmse'`, or `'nmse'`. The `amp_threshold` and `bin_threshold` options are ignored when `metric` is set to `'nmse'`. Additional details on the metrics computation and these thresholds can be found in the docstrings of [metric_utils.py](utils/metric_utils.py). We can also specify a fixed point method for `model`, such as `'ADMM'` or `'ISTA'`, in which case `num_layers` corresponds to the number of iterations. The resulting metric will then be saved as a `.pt` file under `./outputs/metrics/sla` and the estimated spectrums under `./output/spectrums/sla`.
+This will first load the latest model state for the given model name and number of layers, or, alternatively, a specific model state can be loaded through the `model_path` argument, in which case  `load_latest_state` is ignored. Subsequently, the model performance is charachterized with respect to the specified metric, which can be ` 'detection_rate' `, `'rmse'`, or `'nmse'`. The `amp_threshold` and `bin_threshold` arguments must be speficied for both ` 'detection_rate' ` and `'rmse'` and are ignored for `'nmse'`. Additional details on the metrics computation and these thresholds can be found in the docstrings of [metric_utils.py](utils/metric_utils.py). We can also specify a fixed point method for `model`, such as `'ADMM'` or `'ISTA'`, in which case `num_layers` corresponds to the number of iterations. The resulting metric will then be saved as a `.pt` file under `./outputs/metrics/sla` and the estimated spectrums under `./output/spectrums/sla`.
 
-## Acknowledgement
-This work was funded by the RAISE collaboration framework between
-Eindhoven University of Technology and NXP Semiconductors, including a PPS-supplement
-from the Dutch Ministry of Economic Affairs and Climate Policy.
+
 
 

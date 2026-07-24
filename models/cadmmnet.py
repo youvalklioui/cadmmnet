@@ -22,7 +22,7 @@ class UnitCellCAdmmNet(nn.Module):
         
         # Perform inversion in eigen-domain
         w = 1 / (self.v + self.rho).unsqueeze(-1)
-
+        # Perform matrix-vector product with FFTs using the learned eigendcompsition
         u_out = torch.fft.ifft(w * torch.fft.fft(self.rho * (2 * self.S(u_in) - u_in) + yf, dim=0), dim=0)
         u_out = u_out + u_in - self.S(u_in)
         

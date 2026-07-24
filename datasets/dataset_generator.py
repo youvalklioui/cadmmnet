@@ -158,6 +158,9 @@ def generate_dataset_train(dictionary_path, num_measurement_vectors, max_number_
 
     array_size = len(array)
     dictionary_length = len(frequency_grid)
+
+    #The minimum normalized frequency seperation determines the resolvability of sources
+    # https://arxiv.org/pdf/1203.5871
     min_freq_separation = 1 / (min_freq_separation_factor * array_size)
 
     measurement_vectors = torch.zeros((num_measurement_vectors, array_size), dtype=torch.complex128)
